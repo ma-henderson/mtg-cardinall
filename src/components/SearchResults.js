@@ -2,15 +2,14 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { requestSearchCards } from "../store/search/actions";
 import TextField from "@material-ui/core/TextField";
-import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
+import Button from "@material-ui/core/Button";
+import SearchIcon from "@material-ui/icons/Search";
+import CardSelect from "./CardSelect";
 
 export default function SearchResults() {
   // REDUX HOOKS
   // =====> SELECTORS
   const { searchCards, isFetching } = useSelector((s) => s.search);
-  console.log(searchCards);
-  console.log(isFetching);
 
   // =====> ACTIONS
   const dispatch = useDispatch();
@@ -41,12 +40,13 @@ export default function SearchResults() {
         variant="contained"
         color="primary"
         startIcon={<SearchIcon />}
-        onClick={()=>dispatchSearchCards(searchParam)}
+        onClick={() => dispatchSearchCards(searchParam)}
       >
         search
       </Button>
       <h3>the cards: </h3>
-      {searchCards.length > 0 && searchCards.map((card) => <p>{card.name}</p>)}
+      {searchCards.length > 0 &&
+        searchCards.map((card) => <CardSelect {...card} />)}
     </div>
   );
 }
